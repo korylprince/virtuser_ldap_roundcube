@@ -4,7 +4,7 @@
     http://pear.php.net/dtd/package-2.0
     http://pear.php.net/dtd/package-2.0.xsd">
 	<name>virtuser_ldap</name>
-	<channel>pear.roundcube.net</channel>
+    <uri>https://github.com/korylprince/virtuser_ldap_roundcube</uri>
 	<summary>LDAP Name and Email fetching on User creation</summary>
 	<description>Plugin adds possibility to use LDAP to set User Name and Email.</description>
 	<lead>
