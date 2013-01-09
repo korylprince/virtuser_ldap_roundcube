@@ -1,0 +1,12 @@
+<?php
+$rcmail_config['ldapauth']['url'] = 'ldap://example.com';
+$rcmail_config['ldapauth']['basedn'] = 'OU=Some OU,DC=example,DC=com';
+$rcmail_config['ldapauth']['binddn'] = 'CN=Some Dude,OU=Some OU,DC=example,DC=com';
+$rcmail_config['ldapauth']['bindpw'] = 'S3cr3t!';
+$rcmail_config['ldapauth']['userattr'] = 'samAccountName';
+$rcmail_config['ldapauth']['userfilter'] = '(&(objectClass=person)(mail=*)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))'; #last part is for denying disabled users
+// Attributes mapped to create user identity
+$rcmail_config['ldapauth']['attr_name'] = 'cn';
+$rcmail_config['ldapauth']['attr_mail'] = 'mail';
+$rcmail_config['ldapauth']['attr_user'] = 'samAccountName';
+?>
