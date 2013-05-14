@@ -53,6 +53,10 @@ class virtuser_ldap extends rcube_plugin
             # set attributes
             $args['user_email'] = $info[0][$this->config['attr_mail']][0];
             $args['user_name'] = $info[0][$this->config['attr_name']][0];
+            return $args;
+        }
+        else {
+            $args['abort'] = True;
         }
         return $args;
     }
