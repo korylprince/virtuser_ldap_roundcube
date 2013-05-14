@@ -31,6 +31,13 @@ class virtuser_ldap extends rcube_plugin
 
     function user_create($args)
     {
+
+        # don't allow full usernames
+        if (strpos($args['user'], '@') !== false) {
+           $args['abort'] = TRUE;
+           return $args;
+        }
+
         # create filter based on username
         $filter = "(&({$this->config['userattr']}={$args['user']}){$this->config['userfilter']})";
 
@@ -47,16 +54,20 @@ class virtuser_ldap extends rcube_plugin
         if ($ds) {
             # bind and search
             $r = ldap_bind($ds,$this->config['binddn'],$this->config['bindpw']);
-            $sr = ldap_search($ds,$this->config['basedn'],$filter,$attributes);
-            $info = ldap_get_entries($ds,$sr);
+            if ($r) {
+                $sr = ldap_search($ds,$this->config['basedn'],$filter,$attributes);
+                $info = ldap_get_entries($ds,$sr);
 
-            # set attributes
-            $args['user_email'] = $info[0][$this->config['attr_mail']][0];
-            $args['user_name'] = $info[0][$this->config['attr_name']][0];
-            return $args;
+                # set attributes
+                $args['user_email'] = $info[0][$this->config['attr_mail']][0];
+                $args['user_name'] = $info[0][$this->config['attr_name']][0];
+            }
+            else {
+                $args['abort'] = TRUE;
+            }
         }
         else {
-            $args['abort'] = True;
+            $args['abort'] = TRUE;
         }
         return $args;
     }
